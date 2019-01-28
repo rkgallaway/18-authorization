@@ -12,14 +12,18 @@
 * [repo](https://github.com/rkgallaway/18-authorization)
 * [travis](https://www.travis-ci.com/rkgallaway/18-authorization)
 * [back-end](https://lab18-authorization-rg.herokuapp.com) 
-* [front-end](http://xyz.com) (when applicable)
 
 #### Documentation
-* [swagger](http://xyz.com) (API assignments only)
-* [jsdoc](http://xyz.com) (All assignments)
+* [jsdoc](https://github.com/rkgallaway/18-authorization/blob/master/docs/index.html)
 
 ### Modules
-#### `modulename.js`
+#### `google.js`
+#### `middleware.js`
+#### `router.js`
+#### `user-models.js`
+#### `404.js`
+#### `500.js`
+
 ##### Exported Values and Methods
 
 ## Assignment

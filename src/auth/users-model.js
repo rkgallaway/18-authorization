@@ -26,6 +26,12 @@ users.pre('save', function(next) {
     .catch(console.error);
 });
 
+/**
+ * New User create
+ *
+ * @param {*} email
+ * @returns returns new user
+ */
 users.statics.createFromOauth = function(email) {
 
   if(! email) { return Promise.reject('Validation Error'); }
@@ -45,6 +51,30 @@ users.statics.createFromOauth = function(email) {
 
 };
 
+/**
+ * authenticates token
+ *
+ * @param {*} token
+ * @returns  authenticated token
+ */
+users.statics.authenticateToken = function(token){
+  if(usedTokens.has(token)){
+    throw 'Not Available';
+  } else {
+    usedTokens.add(token);
+    let parsedToken = jwt.verify(token, SECRET);
+    let query = {_id:parsedToken.id};
+    return this.findOne(query);
+  }
+};
+
+
+/**
+ *password comparison
+ *
+ * @param {*} auth
+ * @returns true if password correct
+ */
 users.statics.authenticateBasic = function(auth) {
   let query = {username:auth.username};
   return this.findOne(query)
@@ -57,6 +87,12 @@ users.methods.comparePassword = function(password) {
     .then( valid => valid ? this : null);
 };
 
+/**
+ * token generation
+ *
+ * @param {*} type
+ * @returns generates use token
+ */
 users.methods.generateToken = function(type) {
   
   let token = {
@@ -68,6 +104,11 @@ users.methods.generateToken = function(type) {
   return jwt.sign(token, SECRET);
 };
 
+/**
+ *generates key with secret
+ *
+ * @returns key with secret
+ */
 users.methods.generateKey = function() {
   return this.generateToken('key');
 };
